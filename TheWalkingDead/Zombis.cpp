@@ -5,6 +5,28 @@
 enum class Weapon { FISTS, GUN, SHOTGUN, REVOLVER, SNIPER, MACHINE_GUN, MAX };
 
 class Zombie;
+/*
+std::ostream& operator<< (std::ostream &os, const Weapon &weapon) {
+
+	switch (weapon) {
+	case::Weapon::GUN: return os << "gun";
+	case::Weapon::SOTGUN: return os << "gun";
+	case::Weapon::GUN: return os << "gun";
+	case::Weapon::GUN: return os << "gun";
+	case::Weapon::GUN: return os << "gun";
+	}
+
+
+
+
+}
+
+*/
+
+
+
+
+
 
 
 class Player {
@@ -18,16 +40,25 @@ public:
 
 	int life;
 
-	//metodos
-	void attack(Zombie &);
 	
-	bool isalive() {
-		
-		return (life > 0);
+	Player():
+		weapon(static_cast <Weapon>(rand() % static_cast<int>(Weapon::MAX))),
+		precision((rand() % 10)/ 10.f), // posem .f per indicar que es float, ja que si posem .0 es de tips double
+		life(rand() % 100) // constructor
+	{			}
+
+	Player(const Weapon &t_weapon, const float &t_precision, const int &t_life) { // overloading constructor
+		weapon = t_weapon;
+		precision = t_precision;
+		life = t_life;
 	}
 
-	Player():weapon(static_cast <Weapon>(rand() % static_cast<int>(Weapon::MAX))),precision(rand() % 1),life(rand() % 100) // constructor
-	{		
+	//metodos
+	void attack(Zombie &);
+
+	bool isalive() {
+
+		return (life > 0);
 	}
 
 
@@ -64,14 +95,14 @@ class Zombie {
 
 void Player::attack(Zombie &atacat) {
 
-	atacat.life -= static_cast <float>(weapon) * precision;
+	atacat.life -= static_cast <int>(static_cast <int>(weapon) * precision);
 }
 
 int main(void) {
 	srand(time(nullptr));
 	int zombiobjectiu;
 	const int tamanyhorda = 10;
-	Player jugadore;
+	Player jugadore; // es declara i s'inicialitza amb el constructor
 
 	Zombie horda[tamanyhorda];
 
