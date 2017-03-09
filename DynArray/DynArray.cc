@@ -76,7 +76,7 @@ void DynArray::push(const int &val) {
 
 	if (m_size < m_capacity) {
 
-		m_data[m_size++] = val;
+		m_data[m_size] = val;
 
 	}
 	else {
@@ -91,11 +91,13 @@ void DynArray::push(const int &val) {
 
 		m_data = newarray;
 
-		delete[] newarray;
+		newarray = nullptr;
 
-		m_size++;
+		
 		m_capacity++;
 
 	}
+	m_size++;
+
 
 }
